@@ -10,7 +10,7 @@
 ```
 mv tvbox_adm-linux-amd64 /usr/bin/tvbox_adm
 sudo chmod +x /usr/bin/tvbox_adm
-tvbox_adm -port=2345 -domain=/xxx.com(optional)
+tvbox_adm -port=2345 -domain=xxx.com(optional)
 ```
 管理后台/admin
 默认账户`admin`密码`admin`
@@ -30,7 +30,7 @@ Description=TVBox Api Admin
 After=network.target
 
 [Service]
-ExecStart=/usr/bin/tvbox_adm -port=2345 -domain=http://your-domain.com
+ExecStart=/usr/bin/tvbox_adm -port=2345 -domain=xxx.com(optional)
 Restart=always
 User=root
 Group=root
