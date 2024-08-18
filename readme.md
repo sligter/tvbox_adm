@@ -72,7 +72,7 @@ docker run -d --name tvbox_adm \
   -p 2345:2345 \
   --restart unless-stopped \
   bradleylzh/tvbox_adm:v1.0 \
-  --domain=tvbox.212138.xyz
+  --domain=xxx.com
 ```
 
 ### docker compose
