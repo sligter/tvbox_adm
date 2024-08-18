@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='UTF-8'>
+    <title>TvBox Api Admin</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <script defer>
+        function openEditForm(id, name, url) {
+            document.getElementById('edit_id').value = id;
+            document.getElementById('edit_name').value = name;
+            document.getElementById('edit_url').value = url;
+            openTab(null, 'edit_link');
+        }
+
+        function closeEditForm() {
+            openTab(null, 'link_list');
+        }
+
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(tabName).style.display = "block";
+            if (evt) {
+                evt.currentTarget.className += " active";
+            }
+        }
+        window.onload = function() {
+            openTab(null, 'link_list');
+        };
+
+        function changeStateOrDelete(id, action) {
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", action == 'change' ? "/admin/change-state/" + id : "/admin/delete-link/" + id, true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    location.reload();
+                } else if (xhr.readyState == 4 && xhr.status == 500) {
+                    alert("Error changing state or deleting link!");
+                }
+            };
+            xhr.send();
+        }
+    </script>
+
+</head>
+<body>
+    <div class='container'>
+        {{if not .HasActiveLink}}
+        <div class="alert alert-warning" style="background-color: #fff3cd; color: #856404; padding: 10px; border: 1px solid #ffeeba; border-radius: 5px; margin-bottom: 20px;">
+            警告：当前没有激活的链接，请激活一个链接以确保主页正常工作。
+        </div>
+        {{end}}
+
+        <h2>TvBox Api Admin
+            <form style="float:right;" method='post' action='/admin/logout'>
+                <input type='submit' value='退出登录'>
+            </form>
+        </h2>
+        <div class="tab">
+            <button class="tablinks" onclick="openTab(event, 'link_list')">链接列表</button>
+            <button class="tablinks" onclick="openTab(event, 'add_link')">添加链接</button>
+            <button class="tablinks" onclick="openTab(event, 'update_admin')">修改密码</button>
+        </div>
+
+        <div id="add_link" class="tabcontent">
+            <form method='post' action='/admin/add-link'>
+                <label for='name'>名称：</label>
+                <input type='text' id='name' name='name'><br><br>
+                <label for='url'>链接：</label>
+                <input type='text' id='url' name='url'><br><br>
+                <input type='hidden' id='status' name='status' value='0'><br><br>
+                <input type='submit' value='添加链接'>
+            </form>
+        </div>
+
+        <div id="link_list" class="tabcontent">
+            <table border='1'>
+                <tr>
+                    <th>ID</th>
+                    <th>名称</th>
+                    <th>链接</th>
+                    <th>状态</th>
+                    <th>操作</th>
+                </tr>
+                {{range .Links}}
+                <tr>
+                    <td>{{.ID}}</td>
+                    <td>{{.Name}}</td>
+                    <td>{{if gt (len .URL) 30}}{{slice .URL 0 30}}...{{else}}{{.URL}}{{end}}</td>
+                    <td>{{if eq .State 1}}<span style='color:#009900;'>已激活</span>{{else}}<span style='color:#E53333;'>停用中</span>{{end}}</td>
+                    <td>
+                        {{if eq .State 0}}
+                        <button class="apply-btn" onclick="changeStateOrDelete('{{.ID}}', 'change')">激活</button>
+                        {{else}}
+                        <button class="deactivate-btn" onclick="changeStateOrDelete('{{.ID}}', 'change')">停用</button>
+                        {{end}}
+                        <button class="edit-btn" onclick="openEditForm('{{.ID}}', '{{.Name}}', '{{.URL}}')">修改</button>
+                        <button class="delete-btn" onclick="changeStateOrDelete('{{.ID}}', 'delete')">删除</button>
+                    </td>
+                </tr>
+                {{end}}
+            </table>
+        </div>
+        
+        
+        <div id="edit_link" class="tabcontent">
+            <form id="editForm" method='post' action='/admin/edit-link'>
+                <input type='hidden' id='edit_id' name='id'>
+                <label for='edit_name'>名称：</label>
+                <input type='text' id='edit_name' name='name'><br><br>
+                <label for='edit_url'>链接：</label>
+                <input type='text' id='edit_url' name='url'><br><br>
+                <input type='submit' value='保存修改'>
+                <button type="button" onclick="closeEditForm()">取消</button>
+            </form>
+        </div>
+
+        <div id="update_admin" class="tabcontent">
+            <form method='post' action='/admin/update-password'>
+                <label for='old_password'>旧密码：</label>
+                <input type='password' id='old_password' name='old_password'><br><br>
+                <label for='new_password'>新密码：</label>
+                <input type='password' id='new_password' name='new_password'><br><br>
+                <label for='confirm_new_password'>确认新密码：</label>
+                <input type='password' id='confirm_new_password' name='confirm_new_password'><br><br>
+                <input type='submit' value='更新账户信息'><br><br>
+            </form>
+        </div>
+
+        
+    </div>
+</body>
+<footer>
+<p class="text-muted">By sligter | <a href="https://github.com/sligter/tvbox_adm" target="_blank">GitHub</a></p>
+</footer>
+</html>

@@ -1,0 +1,132 @@
+body {
+    font-family: Arial, sans-serif;
+}
+.container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #428FFF;
+}
+.tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+}
+.tab button:hover {
+    background-color: #ddd;
+}
+.tab button.active {
+    background-color: #4CAF50;
+    color: white;
+}
+.tabcontent {
+    display: none;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-top: none;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+th, td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+}
+th {
+    background-color: #f2f2f2;
+}
+input[type="submit"], button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    cursor: pointer;
+}
+input[type="submit"]:hover, button:hover {
+    background-color: #45a049;
+}
+
+/* 通用按钮样式 */
+button {
+    padding: 8px 16px;
+    margin: 5px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+/* 应用按钮样式 */
+.apply-btn {
+    background-color: #4CAF50; /* 绿色 */
+    color: white;
+}
+
+.apply-btn:hover {
+    background-color: #45a049;
+}
+
+/* 停用按钮样式 */
+.deactivate-btn {
+    background-color: #f44336; /* 红色 */
+    color: white;
+}
+
+.deactivate-btn:hover {
+    background-color: #da190b;
+}
+
+/* 编辑按钮样式 */
+.edit-btn {
+    background-color: #008CBA; /* 蓝色 */
+    color: white;
+}
+
+.edit-btn:hover {
+    background-color: #007bb5;
+}
+
+/* 删除按钮样式 */
+.delete-btn {
+    background-color: #e7e7e7; /* 灰色 */
+    color: black;
+}
+
+.delete-btn:hover {
+    background-color: #d4d4d4;
+}
+
+footer {
+    background-color: #f8f9fa;
+    padding: 15px 0;
+    text-align: center;
+    font-size: 14px;
+    color: #6c757d;
+}
+
+footer a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+.error-message {
+    color: #dc3545;
+    margin-bottom: 15px;
+}
