@@ -57,3 +57,34 @@ sudo systemctl enable tvbox_adm
 ```
 sudo systemctl status tvbox_adm
 ```
+
+# docker部署
+```
+docker run -d --name tvbox_adm \
+  -p 2345:2345 \
+  --restart unless-stopped \
+  bradleylzh/tvbox_adm:v1.0
+```
+
+### 绑定域名
+```
+docker run -d --name tvbox_adm \
+  -p 2345:2345 \
+  --restart unless-stopped \
+  bradleylzh/tvbox_adm:v1.0 \
+  --domain=tvbox.212138.xyz
+```
+
+### docker compose
+```
+version: '3'
+services:
+  tvbox_adm:
+    image: bradleylzh/tvbox_adm:v1.0
+    container_name: tvbox_adm
+    ports:
+      - "2345:2345"
+    environment:
+      - DOMAIN=xxx.com
+    restart: unless-stopped
+```
