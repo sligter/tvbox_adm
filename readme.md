@@ -8,6 +8,7 @@
 ## 运行
 
 ```
+wget https://mirror.ghproxy.com/https://github.com/sligter/tvboxadm/releases/latest/download/tvbox_adm-linux-amd64
 mv tvbox_adm-linux-amd64 /usr/bin/tvbox_adm
 sudo chmod +x /usr/bin/tvbox_adm
 tvbox_adm -port=2345 -domain=xxx.com(optional)
