@@ -10,7 +10,7 @@
 ```
 mv tvbox_adm-linux-amd64 /usr/bin/tvbox_adm
 sudo chmod +x /usr/bin/tvbox_adm
-tvbox_adm -port=2345 -domain=http://xxx.com(optional)
+tvbox_adm -port=2345 -domain=/xxx.com(optional)
 ```
 管理后台/admin
 默认账户`admin`密码`admin`
